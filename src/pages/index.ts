@@ -1,3 +1,4 @@
-import IssuePage from './issue'
+import IssuePage from './issues'
+import SingleIssuePage from './single-issue'
 
-export { IssuePage }
+export { IssuePage, SingleIssuePage }

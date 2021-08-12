@@ -2,6 +2,7 @@ import { IIssuesData } from './types'
 import { useState } from 'react'
 
 import clsx from 'clsx'
+import moment from 'moment'
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -9,12 +10,13 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
-import InboxIcon from '@material-ui/icons/Inbox'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 import { ReactComponent as OpenIcon } from './open-icon.svg'
 import { ReactComponent as CloseIcon } from './close-icon.svg'
+
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,18 +60,19 @@ const ListIssues = ({ issueData }: IListIssues) => {
       <Paper>
         <List component="nav" aria-label="main mailbox folders">
           {issues?.nodes.map((issue, index) => {
-            const { number, title, state } = issue
+            const { id, number, title, state, createdAt } = issue
 
             return (
-              <>
+              <div key={id}>
                 {index !== 0 && <Divider />}
                 <ListItem
                   button
                   selected={selectedIndex === 0}
-                  onClick={(event) => handleListItemClick(number)}
+                  onClick={() => handleListItemClick(number)}
+                  component={Link}
+                  to={`/issue/${number}`}
                 >
                   <ListItemIcon>
-                    {/* <InboxIcon /> */}
                     {state === 'OPEN' ? (
                       <OpenIcon
                         className={clsx(classes.icon, classes.openIcon)}
@@ -80,9 +83,14 @@ const ListIssues = ({ issueData }: IListIssues) => {
                       />
                     )}
                   </ListItemIcon>
-                  <ListItemText primary={title} secondary={`#${number}`} />
+                  <ListItemText
+                    primary={title}
+                    secondary={`#${number} · created ${moment(
+                      createdAt
+                    ).fromNow()}`}
+                  />
                 </ListItem>
-              </>
+              </div>
             )
           })}
         </List>

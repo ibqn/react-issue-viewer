@@ -8,11 +8,33 @@ interface IPageInfo {
   endCursor: string
 }
 
+interface IAuthor {
+  login: string
+}
+
+interface IComment {
+  id: string
+  author: IAuthor
+  bodyHTML: string
+  createdAt: string
+}
+
+interface ICommentsData {
+  pageInfo: IPageInfo
+  nodes: Array<IComment>
+  totalCount: number
+}
+
 interface IIssue {
+  id: string
   number: number
   title: string
   state: 'OPEN' | 'CLOSED'
   bodyText: string
+  createdAt: string
+  author: IAuthor
+  bodyHTML: string
+  comments: ICommentsData
 }
 
 interface ISearchData {
@@ -25,4 +47,23 @@ interface IIssuesData {
   search: ISearchData
 }
 
-export type { IIssueQueryVars, IIssuesData, IIssue }
+interface IRepositoryData {
+  issue: IIssue
+}
+
+interface ISingleIssueQueryVars {
+  issueNumber: number
+}
+
+interface ISingleIssueData {
+  repository: IRepositoryData
+}
+
+export type {
+  IIssueQueryVars,
+  ISingleIssueData,
+  ISingleIssueQueryVars,
+  IIssuesData,
+  IIssue,
+  IAuthor,
+}

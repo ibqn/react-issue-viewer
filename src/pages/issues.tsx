@@ -16,10 +16,14 @@ const SEARCH_ISSUE_QUERY = gql`
       issueCount
       nodes {
         ... on Issue {
+          id
           number
           title
           state
-          bodyText
+          author {
+            login
+          }
+          createdAt
         }
       }
     }

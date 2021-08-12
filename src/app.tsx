@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import { IssuePage } from './pages'
+import { IssuePage, SingleIssuePage } from './pages'
 
 import { Header } from './components/layout'
 
@@ -9,6 +9,9 @@ const App = () => (
     <Header />
 
     <Switch>
+      <Route path="/issue/:issueNumber">
+        <SingleIssuePage />
+      </Route>
       <Route path="/">
         <IssuePage />
       </Route>
