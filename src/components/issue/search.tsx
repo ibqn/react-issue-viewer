@@ -2,8 +2,6 @@ import { useState, useEffect, useMemo, ChangeEvent } from 'react'
 
 import debounce from 'lodash/debounce'
 
-import { useApolloClient, gql } from '@apollo/client'
-
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import ClearIcon from '@material-ui/icons/Clear'
@@ -20,61 +18,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SEARCH_ISSUE_QUERY = gql`
-  query {
-    search(
-      query: "repo:facebook/react is:issue in:title test"
-      type: ISSUE
-      first: 100
-      after: null
-    ) {
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
-        endCursor
-      }
-      issueCount
-      nodes {
-        ... on Issue {
-          number
-          title
-          bodyText
-        }
-      }
-    }
-  }
-`
+type TSearchIssue = { setSearchInput: (searchInput: string) => void }
 
-type SearchIssueProps = { setSearchResult: (data: Object | null) => void }
-
-const SearchIssue = ({ setSearchResult }: SearchIssueProps) => {
+const SearchIssue = ({ setSearchInput }: TSearchIssue) => {
   const classes = useStyles()
 
   const [search, setSearch] = useState('')
 
-  const client = useApolloClient()
-
   const delayedSearch = useMemo(
-    () =>
-      debounce(async () => {
-        try {
-          const { data } = await client.query({
-            query: SEARCH_ISSUE_QUERY,
-            variables: { search },
-          })
-
-          console.log('search data', data)
-          setSearchResult(data)
-        } catch (error) {
-          console.error(error)
-        }
-      }, 300),
-    [search, setSearchResult, client]
+    () => debounce(() => setSearchInput(search), 300),
+    [search, setSearchInput]
   )
 
   const clearSearchInput = () => {
     setSearch('')
-    setSearchResult(null)
+    setSearchInput('')
   }
 
   const handleSearchInput = ({

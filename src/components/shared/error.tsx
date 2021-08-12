@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useTheme, makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
+// import { ApolloError } from '@apollo/client'
 
 const useStyles = makeStyles((theme) => ({
   snackbar: {
@@ -14,8 +15,7 @@ export type TErrorMessage = { message: string }
 export type TError = { error: TErrorMessage }
 
 const Error = ({ error }: TError) => {
-  const theme = useTheme()
-  const classes = useStyles(theme)
+  const classes = useStyles()
   const [open, setOpen] = useState(true)
 
   return (
