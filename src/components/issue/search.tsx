@@ -16,6 +16,7 @@ import {
   setSearchInput,
   setIssueState,
   selectState,
+  selectSearchInput,
 } from '../../store/search/searchSlice'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,6 +57,7 @@ const SearchIssue = () => {
   const [search, setSearch] = useState('')
 
   const state = useAppSelector(selectState)
+  const searchInput = useAppSelector(selectSearchInput)
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
     dispatch(setIssueState(value))
@@ -76,6 +78,10 @@ const SearchIssue = () => {
     setSearch(value)
     delayedSearch()
   }
+
+  useEffect(() => {
+    setSearch(searchInput)
+  }, [])
 
   useEffect(() => {
     console.log('effect', search, state)
