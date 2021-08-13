@@ -10,6 +10,14 @@ import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
+import {
+  resetSearchInput,
+  setSearchInput,
+  setIssueState,
+  selectState,
+} from '../../store/search/searchSlice'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -40,30 +48,34 @@ const states = [
   },
 ]
 
-type TSearchIssue = { setSearchInput: (searchInput: string) => void }
-
-const SearchIssue = ({ setSearchInput }: TSearchIssue) => {
+const SearchIssue = () => {
   const classes = useStyles()
 
+  const dispatch = useAppDispatch()
+
   const [search, setSearch] = useState('')
-  const [state, setState] = useState('state:open state:closed')
+
+  const state = useAppSelector(selectState)
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setState(value)
+    dispatch(setIssueState(value))
 
   const delayedSearch = useMemo(
-    () => debounce(() => setSearchInput(`${state} ${search}`), 300),
-    [search, state, setSearchInput]
+    () => debounce(() => dispatch(setSearchInput(search)), 300),
+    [search, dispatch]
   )
 
   const clearSearchInput = () => {
     setSearch('')
-    setSearchInput('')
+    dispatch(resetSearchInput())
   }
 
   const handleSearchInput = ({
     target: { value },
-  }: ChangeEvent<{ value: string }>) => setSearch(value)
+  }: ChangeEvent<{ value: string }>) => {
+    setSearch(value)
+    delayedSearch()
+  }
 
   useEffect(() => {
     console.log('effect', search, state)

@@ -15,6 +15,9 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { ThemeProvider } from 'styled-components'
 
+import store from './store'
+import { Provider } from 'react-redux'
+
 // Required material-ui fonts weights: 300,400,500,700
 // import "@fontsource/roboto/300.css";
 // import "@fontsource/roboto/400.css";
@@ -26,18 +29,20 @@ import '@fontsource/roboto'
 import { theme } from './theme'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <CssBaseline />
+  // <React.StrictMode>
+  <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <CssBaseline />
 
-        <ApolloProvider client={client}>
+      <ApolloProvider client={client}>
+        <Provider store={store}>
           <App />
-        </ApolloProvider>
-      </ThemeProvider>
-    </MuiThemeProvider>
-  </React.StrictMode>,
+        </Provider>
+      </ApolloProvider>
+    </ThemeProvider>
+  </MuiThemeProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 )
 
