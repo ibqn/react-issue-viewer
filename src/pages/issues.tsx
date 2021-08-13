@@ -39,7 +39,7 @@ const IssuePage = () => {
       variables: {
         searchQuery: `repo:facebook/react is:issue in:title ${search}`,
       },
-      skip: !!!search,
+      skip: !search,
     }
   )
 
