@@ -15,15 +15,15 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    resetSearchInput: (state) => {
-      return { ...state, searchInput: '' }
-    },
-    setSearchInput: (state, action: PayloadAction<string>) => {
-      return { ...state, searchInput: action.payload }
-    },
-    setIssueState: (state, action: PayloadAction<string>) => {
-      return { ...state, issueState: action.payload }
-    },
+    resetSearchInput: (state) => ({ ...state, searchInput: '' }),
+    setSearchInput: (state, action: PayloadAction<string>) => ({
+      ...state,
+      searchInput: action.payload,
+    }),
+    setIssueState: (state, action: PayloadAction<string>) => ({
+      ...state,
+      issueState: action.payload,
+    }),
   },
 })
 

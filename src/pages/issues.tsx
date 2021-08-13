@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import SearchIssue from '../components/issue/search'
 import { Container } from '../components/layout'
 import { useQuery, gql } from '@apollo/client'
@@ -34,8 +33,6 @@ const SEARCH_ISSUE_QUERY = gql`
 `
 
 const IssuePage = () => {
-  // const [search, setSearch] = useState('')
-
   const state = useAppSelector(selectState)
   const search = useAppSelector(selectSearchInput)
 
@@ -48,8 +45,6 @@ const IssuePage = () => {
       skip: !search,
     }
   )
-
-  // const setSearchInput = (searchInput: string) => setSearch(searchInput)
 
   let listIssues = <ListIssues issueData={data} />
 
