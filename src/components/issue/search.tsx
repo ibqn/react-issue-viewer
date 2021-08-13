@@ -67,17 +67,11 @@ const SearchIssue = () => {
     [search, dispatch]
   )
 
-  const clearSearchInput = () => {
-    setSearch('')
-    dispatch(resetSearchInput())
-  }
+  const clearSearchInput = () => setSearch('')
 
   const handleSearchInput = ({
     target: { value },
-  }: ChangeEvent<{ value: string }>) => {
-    setSearch(value)
-    delayedSearch()
-  }
+  }: ChangeEvent<{ value: string }>) => setSearch(value)
 
   useEffect(() => {
     setSearch(searchInput)
@@ -87,6 +81,8 @@ const SearchIssue = () => {
     console.log('effect', search, state)
     if (search) {
       delayedSearch()
+    } else {
+      dispatch(resetSearchInput())
     }
 
     return delayedSearch.cancel
