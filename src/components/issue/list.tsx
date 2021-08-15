@@ -94,6 +94,7 @@ const ListIssues = ({ issueData }: IListIssues) => {
             )
           })}
         </List>
+
         {(!issues || issues?.nodes.length === 0) && (
           <Typography className={classes.hint}>
             Try to search for issues

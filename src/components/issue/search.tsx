@@ -75,6 +75,7 @@ const SearchIssue = () => {
 
   useEffect(() => {
     setSearch(searchInput)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const SearchIssue = () => {
     }
 
     return delayedSearch.cancel
-  }, [search, state, delayedSearch])
+  }, [search, state, delayedSearch, dispatch])
 
   return (
     <Paper className={classes.root} elevation={1}>
