@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography'
 
 import Divider from '@material-ui/core/Divider'
 
-import { Error, Loading } from '../components/shared'
+import { Error, Loading } from 'components/shared'
 import { Container } from '../components/layout'
 import { ISingleIssueData, ISingleIssueQueryVars } from '../components/issue'
 

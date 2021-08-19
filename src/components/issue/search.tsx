@@ -10,14 +10,14 @@ import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 
-import { useAppSelector, useAppDispatch } from '../../store/hooks'
+import { useAppSelector, useAppDispatch } from 'store/hooks'
 import {
   resetSearchInput,
   setSearchInput,
   setIssueState,
   selectState,
   selectSearchInput,
-} from '../../store/search/searchSlice'
+} from 'store/search/searchSlice'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
